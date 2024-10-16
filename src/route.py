@@ -1,10 +1,10 @@
 from flask import Blueprint, jsonify, request
-from src.model import Taxi
+from src.model import Taxi, Trajectory
 
-taxi_blueprint = Blueprint('taxi_blueprint', __name__)#Crea el blueprint
+tx_bp = Blueprint('tx_bp', __name__)#Crea el blueprint para taxis
 
 #Endpoint: responde a la petición 'GET'
-@taxi_blueprint.route('/taxis', methods = ['GET'])
+@tx_bp.route('/taxis', methods = ['GET'])
 def get_taxis():
     #Params de consulta de la solicitud HTTP
     plate = request.args.get('plate')
@@ -24,3 +24,13 @@ def get_taxis():
     taxis = filtered_query.paginate(page=page, per_page=limit) #Paginar los resultados  
         
     return jsonify([taxi.dictionary() for taxi in taxis]), 200
+
+
+#Bloque en construcción
+tj_bp = Blueprint('tj_bp', __name__) #Crea el blueprint para trajectories
+
+@tj_bp.route('trajectories', methods = ['GET'])
+def get_trajectories():
+
+    taxiId =
+    date = 

@@ -1,8 +1,8 @@
 import os #Para trabajar con las env-var
 from flask import Flask
 from dotenv import load_dotenv
-from src.model import db
-from src.route import tx_bp, tj_bp
+from src.models import db
+from src.route import taxi_blueprint, trajectory_blueprint
 
 load_dotenv(dotenv_path = '.env.development.local') #Cargar env-var
 
@@ -11,8 +11,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL') #Se carga la e
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 
 db.init_app(app)  #Conecta la instancia SQLALchemy con Flask
-app.register_blueprint(tx_bp) #Blueprint Taxis
-app.register_blueprint(tj_bp) #Blueprint Trajectories
+app.register_blueprint(taxi_blueprint) #Blueprint Taxis
+app.register_blueprint(trajectory_blueprint) #Blueprint Trajectories
 
 if __name__ == '__main__':
     app.run(debug=True)

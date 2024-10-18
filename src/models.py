@@ -29,6 +29,7 @@ class Trajectory(db.Model):
     def to_dictionary(self):
         return{
             'id': self.id,
+            'plate': self.taxi.plate,
             'taxiId': self.taxi_id,
             'date':self.date,
             'latitude':self.latitude,

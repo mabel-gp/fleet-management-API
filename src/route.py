@@ -1,5 +1,6 @@
+"""Taxis endpoint"""
 from flask import Blueprint, jsonify, request
-from src.model import Taxi, Trajectory
+from src.models import Taxi, Trajectory
 
 taxi_blueprint = Blueprint('taxi_blueprint', __name__)#Crea el blueprint para taxis
 
@@ -23,14 +24,22 @@ def get_taxis():
 
     taxis = filtered_query.paginate(page=page, per_page=limit) #Paginar los resultados  
         
-    return jsonify([taxi.dictionary() for taxi in taxis]), 200
+    return jsonify([taxi.to_dictionary() for taxi in taxis]), 200
 
 
-#Bloque en construcción
-# trajectory_blueprint = Blueprint('trajectory_blueprint', __name__) #Crea el blueprint para trajectories
+"""Trajectories Endpoint"""
+trajectory_blueprint = Blueprint('trajectory_blueprint', __name__) #Crea el blueprint para trajectories
 
-# @trajectory_blueprint('/trajectories', methods = ['GET'])
-# def get_trajectories():
+@trajectory_blueprint.route('/trajectories', methods = ['GET'])
+def get_trajectories():
 
-    # taxiId = request.args.get('taxiId')
-    # date = request.args.get('date')
+    taxiId = request.args.get('taxiId')
+    date = request.args.get('date')
+
+    database_query = Trajectory.query
+
+    filtered_query = database_query.filter(Trajectory.taxi_id == taxiId, Trajectory.date == date )
+
+    trajectories = filtered_query.all()
+
+    return jsonify([trajectory.to_dictionary() for trajectory in trajectories]),200

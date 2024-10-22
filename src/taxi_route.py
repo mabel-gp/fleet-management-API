@@ -1,7 +1,9 @@
+"""Taxis endpoint"""
 from flask import Blueprint, jsonify, request
-from src.model import Taxi
+from src.models import Taxi
 
-taxi_blueprint = Blueprint('taxi_blueprint', __name__)#Crea el blueprint
+
+taxi_blueprint = Blueprint('taxi_blueprint', __name__)#Crea el blueprint para taxis
 
 #Endpoint: responde a la petición 'GET'
 @taxi_blueprint.route('/taxis', methods = ['GET'])
@@ -23,4 +25,4 @@ def get_taxis():
 
     taxis = filtered_query.paginate(page=page, per_page=limit) #Paginar los resultados  
         
-    return jsonify([taxi.dictionary() for taxi in taxis]), 200
+    return jsonify([taxi.to_dictionary() for taxi in taxis]), 200

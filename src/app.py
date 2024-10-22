@@ -2,7 +2,8 @@ import os #Para trabajar con las env-var
 from flask import Flask
 from dotenv import load_dotenv
 from src.models import db
-from src.route import taxi_blueprint, trajectory_blueprint
+from src.taxi_route import taxi_blueprint
+from src.trajectories_route import trajectory_blueprint
 
 load_dotenv(dotenv_path = '.env.development.local') #Cargar env-var
 

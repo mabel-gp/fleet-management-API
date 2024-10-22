@@ -1,6 +1,8 @@
 """Taxis endpoint"""
 from flask import Blueprint, jsonify, request
 from src.models import Taxi, Trajectory
+from datetime import datetime 
+from src.models import db
 
 taxi_blueprint = Blueprint('taxi_blueprint', __name__)#Crea el blueprint para taxis
 
@@ -36,10 +38,13 @@ def get_trajectories():
     taxiId = request.args.get('taxiId')
     date = request.args.get('date')
 
-    database_query = Trajectory.query
+    date_DMY = datetime.strptime(date, '%d-%m-%Y') #Param solo acepta formato DD-MM-YYYY
 
-    filtered_query = database_query.filter(Trajectory.taxi_id == taxiId, Trajectory.date == date )
+    database_query = Trajectory.query.filter(
+        Trajectory.taxi_id == taxiId, 
+        db.func.date(Trajectory.date) == date_DMY.date()
+        )
 
-    trajectories = filtered_query.all()
+    trajectories = database_query.all()
 
     return jsonify([trajectory.to_dictionary() for trajectory in trajectories]),200

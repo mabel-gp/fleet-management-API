@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from src.models import db
 from src.taxi_route import taxi_blueprint
 from src.trajectories_route import trajectory_blueprint
+from src.lastposition_route import lastPosition_blueprint
 
 load_dotenv(dotenv_path = '.env.development.local') #Cargar env-var
 
@@ -14,6 +15,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)  #Conecta la instancia SQLALchemy con Flask
 app.register_blueprint(taxi_blueprint) #Blueprint Taxis
 app.register_blueprint(trajectory_blueprint) #Blueprint Trajectories
+app.register_blueprint(lastPosition_blueprint) #Blueprint Trajectories
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -15,6 +15,7 @@ def get_lastPosition():
 
     dict_latest_trajectory = {
         'taxiId': database_query.taxi_id,
+        'plate': database_query.taxi.plate,
         'date': database_query.date,
         'latitude': database_query.latitude,
         'longitude': database_query.longitude,

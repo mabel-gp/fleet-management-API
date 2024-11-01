@@ -39,9 +39,9 @@ def get_lastPosition():
         {
         'taxiId': last_trajectory.taxi_id,
         'plate': last_trajectory.plate,
-        'date': last_trajectory.date,
+        'timestamp': last_trajectory.date,
         'latitude': last_trajectory.latitude,
-        'longitude': last_trajectory.longitude,
+        'longitude': last_trajectory.longitude
         }
         for last_trajectory in last_trajectories
     ]

@@ -1,8 +1,7 @@
 """Trajectories Endpoint"""
 from datetime import datetime 
 from flask import Blueprint, jsonify, request
-from src.models import Taxi, Trajectory
-from src.models import db
+from src.models import Taxi, Trajectory, db
 
 
 trajectory_blueprint = Blueprint('trajectory_blueprint', __name__) #Crea el blueprint para trajectories

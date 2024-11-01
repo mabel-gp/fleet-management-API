@@ -7,7 +7,7 @@ class Taxi(db.Model):
     __tablename__ = 'taxis'
 
     id = db.Column(db.Integer, primary_key=True)
-    plate = db.Column(db.String(20), nullable=False)
+    plate = db.Column(db.String(), nullable=False)
     trajectories = db.relationship('Trajectory', backref='taxi') #Relación uno a muchos
 
     def to_dictionary(self):

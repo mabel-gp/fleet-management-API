@@ -7,7 +7,7 @@ class Taxi(db.Model):
     __tablename__ = 'taxis'
 
     id = db.Column(db.Integer, primary_key=True)
-    plate = db.Column(db.String(), nullable=False)
+    plate = db.Column(db.String, nullable=False)
     trajectories = db.relationship('Trajectory', backref='taxi') #Relación uno a muchos
 
     def to_dictionary(self):
@@ -34,4 +34,21 @@ class Trajectory(db.Model):
             'date':self.date,
             'latitude':self.latitude,
             'longitude':self.longitude
+        }
+
+class Users(db.Model):
+    """Modelo-Users"""
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False)
+    password = db.Column(db.String, nullable=False)
+
+    def to_dictionary(self):
+        return{
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'password': self.password
         }

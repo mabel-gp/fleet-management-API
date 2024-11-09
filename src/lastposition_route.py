@@ -8,7 +8,8 @@ lastPosition_blueprint = Blueprint('lastPosition_blueprint', __name__)
 @lastPosition_blueprint.route('/trajectories/latest', methods = ['GET'])
 def get_lastPosition():
 
-    session = db.session() #Interacción con la database
+    session = db.session() 
+    
     #Subconsulta 
     sub_query = (
         select(

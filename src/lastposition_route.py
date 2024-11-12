@@ -7,8 +7,6 @@ lastPosition_blueprint = Blueprint('lastPosition_blueprint', __name__)
 
 @lastPosition_blueprint.route('/trajectories/latest', methods = ['GET'])
 def get_lastPosition():
-
-    session = db.session() 
     
     #Subconsulta 
     sub_query = (
@@ -34,7 +32,7 @@ def get_lastPosition():
         
     )
 
-    last_trajectories = session.execute(main_query).all() # Ejecuta la consulta principal
+    last_trajectories = db.session.execute(main_query).all() # Ejecuta la consulta principal
     #List, contiene el dic
     last_trajc_dict = [
         {

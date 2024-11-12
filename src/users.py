@@ -1,6 +1,6 @@
 """Users Endpoints"""
 from flask import Blueprint, jsonify, request
-from src.models import Users
+from src.models import db, Users
 
 #---Lista de Usuarios---#
 users_blueprint = Blueprint('users_blueprint', __name__)
@@ -33,6 +33,26 @@ def users():
 def create_user():
     """Create a user"""
 
-    new_user = request.json
+    # Toma los datos
+    data_new_user = request.json
 
-    return jsonify(new_user), 201
+    # Crea una instancia
+    new_user = Users(
+        name=data_new_user['name'],
+        email=data_new_user['email'],
+        password=data_new_user['password']
+    )
+
+    # Agrega el nuevo usuario y lo "guarda" en la database
+    db.session.add(new_user)
+    db.session.commit()
+
+    # Retorna un diccionario en formato json
+    return jsonify({
+        'id': new_user.id,
+        'name': new_user.name,
+        'email': new_user.email
+    }), 201
+
+
+

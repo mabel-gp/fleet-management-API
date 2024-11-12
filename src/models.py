@@ -49,5 +49,6 @@ class Users(db.Model):
         return{
             'id': self.id,
             'name': self.name,
-            'email': self.email
+            'email': self.email,
+            'password':self.password
         }

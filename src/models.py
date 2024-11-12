@@ -50,5 +50,4 @@ class Users(db.Model):
             'id': self.id,
             'name': self.name,
             'email': self.email,
-            'password':self.password
         }

@@ -1,7 +1,8 @@
 """Users Endpoints"""
 from flask import Blueprint, jsonify, request
-from src.models import db, Users
 from sqlalchemy.exc import IntegrityError 
+from src.models import db, Users
+
 
 #---Lista de Usuarios---#
 users_blueprint = Blueprint('users_blueprint', __name__)
@@ -36,6 +37,9 @@ def create_user():
 
     data_new_user = request.json
 
+    if not data_new_user.get('email') or not data_new_user.get('password'):
+        return jsonify({'error':'No email or password provided in body'}), 400
+
     new_user = Users(
         name=data_new_user['name'],
         email=data_new_user['email'],
@@ -57,7 +61,7 @@ def create_user():
 
         db.session.rollback()
 
-        return jsonify({'error':'Conflict: User with email already exists'}),409
+        return jsonify({'error':'Conflict: User with email already exists'}), 409
 
 
 

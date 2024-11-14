@@ -72,12 +72,15 @@ def modify_user(uid):
 
     user = Users.query.get(uid) #Consulta por id
 
-    data_modified_user = request.json
-   
-    if 'name' in data_modified_user:
-        user.name = data_modified_user['name']
-    if 'email' in data_modified_user:
-        user.email = data_modified_user['email']
+    if not user:
+            return jsonify({'error': 'Not Found: user does not exist'}), 404
+            
+    data_modify_user = request.json
+
+    if 'name' in data_modify_user:
+        user.name = data_modify_user['name']
+    if 'email' in data_modify_user:
+        user.email = data_modify_user['email']
 
     db.session.commit()
 

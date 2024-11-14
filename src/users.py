@@ -62,7 +62,30 @@ def create_user():
         db.session.rollback()
 
         return jsonify({'error':'Conflict: User with email already exists'}), 409
+    
 
+#---Modificar un usuario---#
+@users_blueprint.route('/users/<uid>', methods = ['PATCH'])
 
+def modify_user(uid):
+    """Modify a user"""
+
+    user = Users.query.get(uid) #Consulta por id
+
+    data_modified_user = request.json
+   
+    if 'name' in data_modified_user:
+        user.name = data_modified_user['name']
+    if 'email' in data_modified_user:
+        user.email = data_modified_user['email']
+
+    db.session.commit()
+
+    return jsonify({
+        'id': user.id,
+        'name': user.name,
+        'email': user.email
+    }), 200
+    
 
 

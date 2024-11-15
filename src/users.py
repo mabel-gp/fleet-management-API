@@ -38,7 +38,7 @@ def create_user():
     data_new_user = request.json
 
     if not data_new_user.get('email') or not data_new_user.get('password'):
-        return jsonify({'error':'No email or password provided in body'}), 400
+        return jsonify({'error':'Bad Request: No email or password provided in body'}), 400
 
     new_user = Users(
         name=data_new_user['name'],
@@ -73,9 +73,12 @@ def modify_user(uid):
     user = Users.query.get(uid) #Consulta por id
 
     if not user:
-            return jsonify({'error': 'Not Found: user does not exist'}), 404
-            
-    data_modify_user = request.json
+        return jsonify({'error': 'Not Found: User does not exist'}), 404
+
+    data_modify_user = request.get_json(silent=True)
+
+    if not data_modify_user:
+        return jsonify({'error': 'Bad Request: No request body'}), 400
 
     if 'name' in data_modify_user:
         user.name = data_modify_user['name']

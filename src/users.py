@@ -35,9 +35,9 @@ def users():
 def create_user():
     """Create a user"""
 
-    data_new_user = request.json
+    data_new_user = request.get_json()
 
-    if not data_new_user.get('email') or not data_new_user.get('password'):
+    if not 'email' in data_new_user or not 'password' in data_new_user:
         return jsonify({'error':'Bad Request: No email or password provided in body'}), 400
 
     new_user = Users(
@@ -80,10 +80,11 @@ def modify_user(uid):
     if not data_modify_user:
         return jsonify({'error': 'Bad Request: No request body'}), 400
 
+    if 'email' in data_modify_user or 'password' in data_modify_user:
+        return jsonify({'error': 'Bad Request: Updating email or password is not allowed'}), 400
+
     if 'name' in data_modify_user:
         user.name = data_modify_user['name']
-    if 'email' in data_modify_user:
-        user.email = data_modify_user['email']
 
     db.session.commit()
 

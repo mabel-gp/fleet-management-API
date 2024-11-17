@@ -103,6 +103,9 @@ def delete_user(uid):
 
     user = Users.query.get(uid)
 
+    if not user:
+        return jsonify({'error':'Not Found: User does not exist'}), 404
+
     db.session.delete(user) #Pendiente-eliminar
     db.session.commit()
 

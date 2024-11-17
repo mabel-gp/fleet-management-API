@@ -95,4 +95,23 @@ def modify_user(uid):
     }), 200
     
 
+#---Eliminar un usuario---#
+@users_blueprint.route('/users/<uid>', methods = ['DELETE'])
 
+def delete_user(uid):
+    """Delete a user"""
+
+    user = Users.query.get(uid)
+
+    if not user:
+        return jsonify({'error':'Not Found: User does not exist'}), 404
+
+    db.session.delete(user) #Pendiente-eliminar
+    db.session.commit()
+
+    return jsonify({
+        'id': user.id,
+        'name': user.name,
+        'email': user.email
+        }), 200
+   

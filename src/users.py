@@ -1,4 +1,4 @@
-"""Users Endpoints"""
+"""CRUD Operations - Users Endpoints"""
 from flask import Blueprint, jsonify, request
 from sqlalchemy.exc import IntegrityError 
 from src.models import db, Users

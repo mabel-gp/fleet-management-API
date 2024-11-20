@@ -13,6 +13,7 @@ load_dotenv(dotenv_path = '.env.development.local') #Cargar env-var
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL') #Se carga la env-var
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+app.config['KEY'] = os.getenv('KEY') #Cargar secret key para JWT
 
 db.init_app(app)  #Conecta la instancia SQLALchemy con Flask
 app.register_blueprint(taxi_blueprint) #Blueprint Taxis
